@@ -1,14 +1,13 @@
 package edu.pitt.cs;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 import static org.junit.Assert.*;
 
-import org.mockito.Mockito;
-import static org.mockito.Mockito.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+import org.mockito.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CatUnitTest {
@@ -25,6 +24,8 @@ public class CatUnitTest {
 
 	@Before
 	public void setUp() throws Exception {
+
+		c = Cat.createInstance(InstanceType.IMPL,1, "Jennyanydots");
 		// INITIALIZE THE TEST FIXTURE
 
 		// Create a Cat with ID 1 and name "Jennyanydots", assign to c using a call to Cat.createInstance(InstanceType, int, String).
@@ -53,6 +54,7 @@ public class CatUnitTest {
 	@Test
 	public void testGetId() {
 		// TODO: Fill in
+		assertEquals(1, c.getId());
 	}
 
 	/**
@@ -61,12 +63,13 @@ public class CatUnitTest {
 	 * <pre>
 	 * Preconditions: c has been created with ID 1, and name "Jennyanydots".
 	 * Execution steps: Call c.getName().
-	 * Postconditions: Return value is "Jennyanydots".
+	 * Postconditions: Return value is 1.
 	 * </pre>
 	 */
 	@Test
 	public void testGetName() {
 		// TODO: Fill in
+		assertEquals("Jennyanydots", c.getName());
 	}
 
 	/**
@@ -81,6 +84,7 @@ public class CatUnitTest {
 	@Test
 	public void testGetRented() {
 		// TODO: Fill in
+		assertFalse(c.getRented());
 	}
 
 	/**
@@ -94,6 +98,8 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testToString() {
+		
+		assertEquals("ID 1. Jennyanydots", c.toString());
 		// TODO: Fill in
 	}
 
@@ -109,6 +115,8 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testRentCat() {
+		c.rentCat();
+		assertTrue(c.getRented());
 		// TODO: Fill in
 	}
 
@@ -125,6 +133,10 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testReturnCat() {
+
+		c.rentCat();
+		c.returnCat();
+		assertFalse(c.getRented());
 		// TODO: Fill in
 	}
 
@@ -140,6 +152,11 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testRenameCat() {
+
+		c.renameCat("Garfield");
+		assertEquals("Garfield", c.getName()); 
+        assertEquals("ID 1. Garfield", c.toString()); 
+    
 		// TODO: Fill in
 	}
 
